@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>server module &#8212; FastChat 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="loadbalancer module" href="loadbalancer.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="loadbalancer.html" title="loadbalancer module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">FastChat 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">Sphinx_Documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">server module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-server">
+<span id="server-module"></span><h1>server module<a class="headerlink" href="#module-server" title="Permalink to this heading">¶</a></h1>
+<p>This file is the file on the server’s side of things. It handles all the actions of the server, including sending and receiving messages, communicating with other servers, looking at the database, etc</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="server.IP">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">IP</span></span><a class="headerlink" href="#server.IP" title="Permalink to this definition">¶</a></dt>
+<dd><p>The IP address of the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="server.PORT">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">PORT</span></span><a class="headerlink" href="#server.PORT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The port of the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="server.ID">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">ID</span></span><a class="headerlink" href="#server.ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>The server ID of the server (should be in sequence, the first server to be created must have ID 1, and so on)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="server.N">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">N</span></span><a class="headerlink" href="#server.N" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of servers that are to be created</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="server.MAX_SIZE">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">MAX_SIZE</span></span><a class="headerlink" href="#server.MAX_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The max size limit for the message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="server.Server">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">Server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">IP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PORT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.accept_wrapper">
+<span class="sig-name descname"><span class="pre">accept_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.accept_wrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function accepts the initial condition from the client, before it is authenticated by the server. It also calls the function to update the numclients table, which gives us an idea on the load of the servers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sock</strong> (<em>obj</em>) – The socket used for communication between client and server, before authentication</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.add_to_group">
+<span class="sig-name descname"><span class="pre">add_to_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.add_to_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a function for user <cite>admin_id</cite> to add user <cite>part_id</cite> into the group <cite>group_id</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part_id</strong> (<em>int</em>) – The ID of the participant to be added</p></li>
+<li><p><strong>admin_id</strong> (<em>int</em>) – The ID of the person who is adding the participant</p></li>
+<li><p><strong>group_id</strong> (<em>int</em>) – The ID of the group to be added</p></li>
+<li><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket. In this case, we use it to forward a confirmation message about the addition into the group</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.authenticate_client">
+<span class="sig-name descname"><span class="pre">authenticate_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.authenticate_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function authenticates the client if it has already been registered, with it’s password and ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket</p></li>
+<li><p><strong>mask</strong> (<em>obj</em>) – Gives information about what type of operation must be performed, whether it is a read operation or a write operation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If the username and password don’t match the records</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.bind_listener">
+<span class="sig-name descname"><span class="pre">bind_listener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.bind_listener" title="Permalink to this definition">¶</a></dt>
+<dd><p>This binds the listening socket to the port and IP of the server, and sets the setblocking parameter to <cite>False</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.connect_servers">
+<span class="sig-name descname"><span class="pre">connect_servers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.connect_servers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function establishes connections between each pair of servers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.create_group">
+<span class="sig-name descname"><span class="pre">create_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.create_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a group with the list of participants and the admin of the group to be formed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket through which the request came from, so can be used to find the admin of the new group.</p></li>
+<li><p><strong>details</strong> (<em>_type_</em>) – The message, which contains information on the new participants of the group.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function forwards the messages that have been generated with both a read and write status to the client directly, and then updates the socket back to an empty message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.get_group_keys">
+<span class="sig-name descname"><span class="pre">get_group_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">details</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.get_group_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dictionary containing key value pairs of all members of a group and their public keys</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>details</strong> (<em>dict</em>) – The message attribute of this dict contains the group id of the group</p></li>
+<li><p><strong>user_id</strong> (<em>int</em>) – The user id to be excluded from the dict (he’s querying for the other keys)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict with key value pairs of the participants of the group and their public keys (except the one of the user_id)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.get_keys">
+<span class="sig-name descname"><span class="pre">get_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">details</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.get_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dictionary containing a single key value pair of the user and his public key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>details</strong> (<em>dict</em>) – The message attribute of this dict contains the user id of the user</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict with a single key value pair of the user and his public key</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.group_chat">
+<span class="sig-name descname"><span class="pre">group_chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.group_chat" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is responsible for sending group chat messages between two clients, by handling messages between servers and also between clients and servers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket</p></li>
+<li><p><strong>details</strong> (<em>dict</em>) – A JSON object which contains the encrypted message to be sent to members of the group</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.handle_events">
+<span class="sig-name descname"><span class="pre">handle_events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.handle_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the function that handles the different events that can occur. It first reads from the selector, and then depending on the event, it decides to receive or send messages.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.message">
+<span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a function to accept a message from a client, and then handle the following events appropriately, like which server to redirect the message to, etc. It also calls the group chat functions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.register_client">
+<span class="sig-name descname"><span class="pre">register_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.register_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function takes care of the registration of the client (for the first time only, after that it is authentication)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket</p></li>
+<li><p><strong>details</strong> (<em>dict</em>) – Is a JSON object which has the information about the message sent by the client to the server, namely, the user and the encrypted password</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.remove_from_group">
+<span class="sig-name descname"><span class="pre">remove_from_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.remove_from_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a function for user <cite>admin_id</cite> to remove user <cite>part_id</cite> from the group <cite>group_id</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part_id</strong> (<em>int</em>) – The ID of the participant to be removed</p></li>
+<li><p><strong>admin_id</strong> (<em>int</em>) – The ID of the person who is removing the participant</p></li>
+<li><p><strong>group_id</strong> (<em>int</em>) – The ID of the group to be removed</p></li>
+<li><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket. In this case, we use it to forward a confirmation message about the removal from the group</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.reply">
+<span class="sig-name descname"><span class="pre">reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.reply" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to only send messages to the client, and modify the socket to it’s next state, which could either be a read state or both read and write state. This function also is responsible for querying from the table for unread messages, which would then be delivered to the respective clients</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.server_messages">
+<span class="sig-name descname"><span class="pre">server_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.server_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to send messages between servers, since all the servers are connected to each other. This is essential to be able to send messages between two clients who are not connected to the same server</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="server.Server.service_connection">
+<span class="sig-name descname"><span class="pre">service_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server.Server.service_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function handles events that are only about receiving messages (or images) from clients or servers. There is a separate section to deal with messages that are about authentication</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>obj</em>) – Contains information about the socket between the client and the server, and also the data that will be communicated through that socket.</p></li>
+<li><p><strong>mask</strong> (<em>obj</em>) – Contains information about the operation to be performed, whether it is to receive data or to send data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="loadbalancer.html"
+                          title="previous chapter">loadbalancer module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/server.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="loadbalancer.html" title="loadbalancer module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">FastChat 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >Sphinx_Documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">server module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Anand, Atharva and Adarsh.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

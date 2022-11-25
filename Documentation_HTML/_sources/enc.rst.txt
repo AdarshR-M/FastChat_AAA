@@ -1,0 +1,7 @@
+enc module
+==========
+
+.. automodule:: enc
+   :members:
+   :undoc-members:
+   :show-inheritance:

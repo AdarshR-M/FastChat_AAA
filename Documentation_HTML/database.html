@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>database module &#8212; FastChat 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="enc module" href="enc.html" />
+    <link rel="prev" title="client module" href="client.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="enc.html" title="enc module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="client.html" title="client module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">FastChat 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">Sphinx_Documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">database module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-database">
+<span id="database-module"></span><h1>database module<a class="headerlink" href="#module-database" title="Permalink to this heading">¶</a></h1>
+<p>This file is a collection of functions to access and modify the postgreSQL database <cite>fastchat</cite>.</p>
+<p>We have used the package psycopg2, which provides us a connector through which we are able to query, modify and change the database.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="database.CentralDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.</span></span><span class="sig-name descname"><span class="pre">CentralDatabase</span></span><a class="headerlink" href="#database.CentralDatabase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for the Central Database, to be accessed by all the servers</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.add_participant">
+<span class="sig-name descname"><span class="pre">add_participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.add_participant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a participant from a group, on the admin’s request</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part_id</strong> (<em>int</em>) – The ID of the participant to be added</p></li>
+<li><p><strong>admin_id</strong> (<em>int</em>) – The ID of the person trying to add the participant</p></li>
+<li><p><strong>group_id</strong> (<em>_type_</em>) – The group to which the participant is to be added</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>-1, if the person trying to add a participant is not the admin of the group
+-2, if the person to be added isn’t part of the group
+-3, if the group doesn’t exist
+-4, if the user to be added doesn’t exist
+1, otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.change_server">
+<span class="sig-name descname"><span class="pre">change_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.change_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the server of the user in the users table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>int</em>) – The user ID of the user</p></li>
+<li><p><strong>server_id</strong> (<em>int</em>) – The server ID to be updated to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.check_cred">
+<span class="sig-name descname"><span class="pre">check_cred</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.check_cred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the credentials supplied by the user are correct</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>int</em>) – The user ID of the user</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The password (encrypted) of the user</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>True</cite> if the credentials are valid and <cite>False</cite> if the credentials aren’t</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.check_server">
+<span class="sig-name descname"><span class="pre">check_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.check_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> (<em>int</em>) – The user ID of the user</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The server that the user is conencted to, -1 if offline and -2 if not registered</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.check_user">
+<span class="sig-name descname"><span class="pre">check_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.check_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether a user is registered or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> (<em>int</em>) – The user ID of the user</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>True</cite> if the user is registered and <cite>False</cite> if not</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.close_connection">
+<span class="sig-name descname"><span class="pre">close_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.close_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection between the python script and the postgreSQL database</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.create_group">
+<span class="sig-name descname"><span class="pre">create_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">admin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">participants</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.create_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a group with an admin and participants</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>admin_id</strong> (<em>int</em>) – The admin user ID</p></li>
+<li><p><strong>participants</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – The list of participants to be added in the group</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the ID of the group created, -1 if a participant in the list isn’t registered</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.del_participant">
+<span class="sig-name descname"><span class="pre">del_participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.del_participant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a participant from a group, on the admin’s request</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part_id</strong> (<em>int</em>) – The ID of the participant to be removed</p></li>
+<li><p><strong>admin_id</strong> (<em>int</em>) – The ID of the person trying to remove the participant</p></li>
+<li><p><strong>group_id</strong> (<em>_type_</em>) – The group from which the participant is to be removed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>-1, if the person trying to remove a participant is not the admin of the group
+-2, if the person to be removed isn’t part of the group
+-3, if the group doesn’t exist
+1, otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.displayallgroupmessage">
+<span class="sig-name descname"><span class="pre">displayallgroupmessage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.displayallgroupmessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print all the unread group messages</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.displayallmessage">
+<span class="sig-name descname"><span class="pre">displayallmessage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.displayallmessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays all the messages stored in the tables messages</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.displayallusers">
+<span class="sig-name descname"><span class="pre">displayallusers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.displayallusers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the details of all users</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.fetch_group_keys">
+<span class="sig-name descname"><span class="pre">fetch_group_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.fetch_group_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the public keys of all users in a group except the given user (Checks whether they’re in the group or not)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group_id</strong> (<em>int</em>) – The group ID of the group</p></li>
+<li><p><strong>user_id</strong> (<em>int</em>) – The user ID of the user to be excluded</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary with keys being the user IDs and values being the public keys.
+Returns -1 if the user isn’t present in the group</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite> or <cite>int</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.fetch_key">
+<span class="sig-name descname"><span class="pre">fetch_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.fetch_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the public key of a given user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> (<em>int</em>) – Contains the user ID of the user</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Public Key of the user</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.get_min_numclients">
+<span class="sig-name descname"><span class="pre">get_min_numclients</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.get_min_numclients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects the server with the least number of clients connected to it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Server ID of the required server</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.group_participants">
+<span class="sig-name descname"><span class="pre">group_participants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.group_participants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the participants of a group</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>group_id</strong> (<em>int</em>) – The group ID of the group</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of participant IDs in the group</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.init_numclients">
+<span class="sig-name descname"><span class="pre">init_numclients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_servers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.init_numclients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the table numclients which maintains the tally of number of clients per server vs the corresponding ip and port number. Sets all values to 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_servers</strong> (<em>int</em>) – The number of servers running</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>True</cite> if it initialises correctly, else <cite>False</cite></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.insert_group_message">
+<span class="sig-name descname"><span class="pre">insert_group_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.insert_group_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts an group message into the groupmessage table, only when unread by a receiver</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender_id</strong> (<em>int</em>) – The user ID of the sender</p></li>
+<li><p><strong>receiver_id</strong> (<em>int</em>) – The user ID of the receiver who is offline</p></li>
+<li><p><strong>datetime</strong> (<em>str</em>) – The datetime string of the message</p></li>
+<li><p><strong>group_id</strong> (<em>int</em>) – The user ID of the sender</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – The unread group message to the offline receiver</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>True</cite> if inserting works and <cite>False</cite> otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.insert_message">
+<span class="sig-name descname"><span class="pre">insert_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.insert_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a direct message into the message database, only when the receiver is offline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender_id</strong> (<em>int</em>) – The user ID of the sender</p></li>
+<li><p><strong>receiver_id</strong> (<em>int</em>) – The receiver ID of the user</p></li>
+<li><p><strong>datetime</strong> (<em>str</em>) – The datetime string of the message</p></li>
+<li><p><strong>message</strong> (<em>_type_</em>) – The direct text message to be sent</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>True</cite> if the receiver is registered and <cite>False</cite> if not</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.insert_newuser">
+<span class="sig-name descname"><span class="pre">insert_newuser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.insert_newuser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a new user into the user table, if the user did not exist previously</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>int</em>) – The user ID of the user to be inserted</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The encrypted password of the user</p></li>
+<li><p><strong>server_id</strong> (<em>int</em>) – The server ID of the server that the user is connected to</p></li>
+<li><p><strong>public_key</strong> (<em>str</em>) – The public key of the user</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>True</cite> if the user wasn’t already present, and <cite>False</cite> if it was already present</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.show_group_message">
+<span class="sig-name descname"><span class="pre">show_group_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receiver_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.show_group_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unread group messages from the groupmessages table, with the given receiver ID. Also deletes those messages from the table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>receiver_id</strong> (<em>int</em>) – The user ID of the receiver who is offline</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the row of the database with the correct receiver ID</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">tup</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.show_message">
+<span class="sig-name descname"><span class="pre">show_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receiver_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.show_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unread messages from the messages table, with the given receiver ID. Also deletes those messages from the table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>receiver_id</strong> (<em>int</em>) – The user ID of the receiver who is offline</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the row of the database with the correct receiver ID</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">tup</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.CentralDatabase.update_numclients">
+<span class="sig-name descname"><span class="pre">update_numclients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_ID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">increase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.CentralDatabase.update_numclients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the table numclients when user comes online or goes offline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>server_ID</strong> (<em>int</em>) – ID of the server to be updated</p></li>
+<li><p><strong>increase</strong> (<em>int</em>) – Either +1 or -1 depending on whether a user is going offline or coming online</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>True</cite> if there is no error, else <cite>False</cite> if the server itself isn’t in the table to begin with</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="database.list_to_postgre_array">
+<span class="sig-prename descclassname"><span class="pre">database.</span></span><span class="sig-name descname"><span class="pre">list_to_postgre_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.list_to_postgre_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a Python list into a PostgreSQL array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lst</strong> (<em>list</em>) – Contains the list elements to be converted into a PostgreSQL array</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A PostgreSQL array in string format</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="database.postgre_array_to_list">
+<span class="sig-prename descclassname"><span class="pre">database.</span></span><span class="sig-name descname"><span class="pre">postgre_array_to_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.postgre_array_to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a PostgreSQL array into a Python list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arr_str</strong> (<em>str</em>) – PostgreSQL array in string format</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of elements in the PostgreSQL array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="client.html"
+                          title="previous chapter">client module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="enc.html"
+                          title="next chapter">enc module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/database.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="enc.html" title="enc module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="client.html" title="client module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">FastChat 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >Sphinx_Documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">database module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Anand, Atharva and Adarsh.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>
